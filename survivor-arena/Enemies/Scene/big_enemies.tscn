@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://virdob1yn0pp"]
+
+[ext_resource type="Script" uid="uid://dkatcb8an1en7" path="res://Enemies/Script/enemies.gd" id="1_u17px"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8dngs"]
+size = Vector2(40, 40)
+
+[sub_resource type="QuadMesh" id="QuadMesh_8dngs"]
+size = Vector2(40, 40)
+
+[node name="Big_Enemies" type="CharacterBody2D" groups=["Enemies"]]
+script = ExtResource("1_u17px")
+max_health = 150
+move_speed = 50.0
+attack_range = 50.0
+attack_damage = 25.0
+attack_speed = 1.2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_8dngs")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+modulate = Color(0.28235295, 0, 0, 1)
+mesh = SubResource("QuadMesh_8dngs")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]

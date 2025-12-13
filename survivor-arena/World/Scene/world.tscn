@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://cnx4ws4jlf52d"]
+
+[ext_resource type="PackedScene" uid="uid://dx7wra3rvnp5t" path="res://Player/Scene/player.tscn" id="1_k0e7c"]
+[ext_resource type="PackedScene" uid="uid://d3cfso3ljt3te" path="res://Enemies/Scene/enemies.tscn" id="2_lv25o"]
+[ext_resource type="PackedScene" uid="uid://virdob1yn0pp" path="res://Enemies/Scene/big_enemies.tscn" id="3_ih4yd"]
+[ext_resource type="PackedScene" uid="uid://ck68ntuusmxxs" path="res://Enemies/Scene/tank_enemies.tscn" id="4_y5o0f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ih4yd"]
+size = Vector2(1174, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y5o0f"]
+size = Vector2(20, 678)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nphny"]
+size = Vector2(1173, 22)
+
+[node name="World" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="Mur_Nord" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(577, 0)
+shape = SubResource("RectangleShape2D_ih4yd")
+
+[node name="Mur_Ouest" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 329)
+shape = SubResource("RectangleShape2D_y5o0f")
+
+[node name="Mur_Sud" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(576.5, 646)
+shape = SubResource("RectangleShape2D_nphny")
+
+[node name="Mur_Est" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1153, 329)
+shape = SubResource("RectangleShape2D_y5o0f")
+
+[node name="Player" parent="." instance=ExtResource("1_k0e7c")]
+position = Vector2(327, 198)
+
+[node name="Enemies" parent="." instance=ExtResource("2_lv25o")]
+position = Vector2(597, 123)
+
+[node name="Big_Enemies" parent="." instance=ExtResource("3_ih4yd")]
+position = Vector2(181, 131)
+
+[node name="Tank_Enemies" parent="." instance=ExtResource("4_y5o0f")]
+position = Vector2(629, 510)
