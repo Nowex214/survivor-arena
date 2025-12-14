@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://3rby53imqmcf"]
+[gd_scene load_steps=4 format=3 uid="uid://3rby53imqmcf"]
+
+[ext_resource type="Script" uid="uid://ca4axhqu2n64p" path="res://Weapon/Script/bullet.gd" id="1_10x0s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q3low"]
 size = Vector2(7.5, 3.25)
@@ -6,7 +8,8 @@ size = Vector2(7.5, 3.25)
 [sub_resource type="QuadMesh" id="QuadMesh_10x0s"]
 size = Vector2(7.5, 3.25)
 
-[node name="Bullet" type="RigidBody2D"]
+[node name="Bullet" type="Area2D"]
+script = ExtResource("1_10x0s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_q3low")
@@ -14,3 +17,5 @@ shape = SubResource("RectangleShape2D_q3low")
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
 modulate = Color(1, 0.7372549, 1, 1)
 mesh = SubResource("QuadMesh_10x0s")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

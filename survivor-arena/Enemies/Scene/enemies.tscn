@@ -9,6 +9,8 @@ size = Vector2(20, 20)
 
 [node name="Enemies" type="CharacterBody2D" groups=["Enemies"]]
 script = ExtResource("1_85357")
+max_health = null
+move_speed = null
 attack_range = 35.0
 attack_damage = 7.0
 attack_speed = 2.0

@@ -49,3 +49,10 @@ func attack_player():
 		return
 	attack_cooldown = 1.0 / attack_speed
 	player.take_damage(attack_damage)
+
+func take_damage(amount: int) -> void:
+	max_health -= amount
+	if max_health >= 0:
+		print("Enemy HP: ", max_health)
+	if max_health <= 0:
+		queue_free()

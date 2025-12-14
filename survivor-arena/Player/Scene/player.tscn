@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dx7wra3rvnp5t"]
+[gd_scene load_steps=4 format=3 uid="uid://dx7wra3rvnp5t"]
 
 [ext_resource type="Script" uid="uid://csebyf1yagq33" path="res://Player/Script/player.gd" id="1_4flbx"]
 
@@ -6,9 +6,6 @@
 
 [sub_resource type="QuadMesh" id="QuadMesh_hoak5"]
 size = Vector2(20, 20)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hoak5"]
-size = Vector2(24, 24)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_4flbx")
@@ -23,9 +20,6 @@ mesh = SubResource("QuadMesh_hoak5")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.25, 1.25)
 
-[node name="Hitbox" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-shape = SubResource("RectangleShape2D_hoak5")
-
-[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(15, 0)
+rotation = -1.5726103

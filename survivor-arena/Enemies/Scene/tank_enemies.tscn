@@ -10,7 +10,7 @@ size = Vector2(30, 30)
 
 [node name="Tank_Enemies" type="CharacterBody2D" groups=["Enemies"]]
 script = ExtResource("1_no3bb")
-max_health = 500
+max_health = 300
 attack_range = 50.0
 attack_damage = 4.0
 attack_speed = 1.5
