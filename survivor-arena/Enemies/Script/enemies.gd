@@ -13,7 +13,8 @@ extends CharacterBody2D
 
 @onready var attack_raycast : RayCast2D = $RayCast2D
 @onready var nav_agent : NavigationAgent2D = $NavigationAgent2D
-
+@onready var mesh_intance : MeshInstance2D = $MeshInstance2D
+@onready var particles : GPUParticles2D = $GPUParticles2D
 var current_health : int = max_health
 var attack_cooldown: float = 0.0
 
@@ -22,7 +23,7 @@ func _ready():
 	call_deferred("actor_setup")
 
 func _physics_process(delta: float):
-	if player == null:
+	if not is_instance_valid(player):
 		return
 
 	if attack_cooldown > 0:
@@ -47,7 +48,8 @@ func actor_setup():
 	make_path()
 
 func make_path():
-	nav_agent.target_position = player.global_position
+	if is_instance_valid(player):
+		nav_agent.target_position = player.global_position
 
 func attack_player():
 	if attack_cooldown > 0:
@@ -56,11 +58,19 @@ func attack_player():
 	player.take_damage(attack_damage)
 
 func take_damage(amount: int) -> void:
-	max_health -= amount
-	if max_health >= 0:
-		print("Enemy HP: ", max_health)
-	if max_health <= 0:
+	var tween = get_tree().create_tween()
+	tween.tween_method(set_shader_blink, 1.0, 0.0, 0.5)
+	particles.restart()
+	particles.emitting = true
+	current_health -= amount
+	if current_health >= 0:
+		print("Enemy HP: ", current_health)
+	if current_health <= 0:
+		await get_tree().create_timer(0.5).timeout
 		queue_free()
+
+func set_shader_blink(newValue : float):
+	mesh_intance.material.set_shader_parameter("blink_intensity", newValue)
 
 func _on_timer_timeout() -> void:
 	make_path()

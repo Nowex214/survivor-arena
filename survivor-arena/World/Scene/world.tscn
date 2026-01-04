@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://cnx4ws4jlf52d"]
+[gd_scene load_steps=14 format=4 uid="uid://cnx4ws4jlf52d"]
 
 [ext_resource type="PackedScene" uid="uid://dx7wra3rvnp5t" path="res://Player/Scene/player.tscn" id="1_k0e7c"]
 [ext_resource type="Script" uid="uid://bo2ger4otkwdd" path="res://World/Script/world.gd" id="1_nphny"]
@@ -14,6 +14,9 @@ sky_material = SubResource("ProceduralSkyMaterial_nphny")
 [sub_resource type="Environment" id="Environment_nphny"]
 background_mode = 1
 sky = SubResource("Sky_pmpo8")
+fog_mode = 1
+fog_light_energy = 8.63
+fog_density = 1.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_y5o0f"]
 vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
@@ -28,14 +31,19 @@ texture_region_size = Vector2i(32, 32)
 0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_y5o0f")
 0:0/0/custom_data_0 = true
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_nphny"]
+polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wd8eq"]
 texture = ExtResource("2_nphny")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
+0:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_nphny")
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
 [sub_resource type="TileSet" id="TileSet_5kldo"]
 tile_size = Vector2i(32, 32)
+occlusion_layer_0/light_mask = 1
 physics_layer_0/collision_layer = 1
 navigation_layer_0/layers = 1
 custom_data_layer_0/name = "can_spawn"
@@ -54,7 +62,7 @@ enemy_delay = 2.0
 environment = SubResource("Environment_nphny")
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
-color = Color(0.06879827, 0.06879828, 0.06879828, 1)
+color = Color(0, 0, 0.08235294, 1)
 blend_mode = 2
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]

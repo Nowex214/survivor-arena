@@ -28,6 +28,7 @@ func start_wave(amount: int, interval: float):
 
 	for i in range(amount):
 		spawn_enemies()
+		print("Debug: Enemy spawn: ", i)
 		await get_tree().create_timer(interval).timeout
 
 func find_spawnable_tile():
@@ -49,4 +50,4 @@ func spawn_enemies():
 	var global_pos = tile_map_layer.to_global(local_pos)
 	var enemies_instance = enemy.instantiate()
 	enemies_instance.global_position = global_pos
-	get_tree().root.add_child.call_deferred(enemies_instance)
+	add_child(enemies_instance)

@@ -17,8 +17,9 @@ gradient = SubResource("Gradient_hoak5")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[node name="Player" type="CharacterBody2D" groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health_bar") groups=["Player"]]
 script = ExtResource("1_4flbx")
+health_bar = NodePath("Camera2D/HUD")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_sh265")
@@ -30,9 +31,7 @@ mesh = SubResource("QuadMesh_hoak5")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2.2, 2.2)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
-
-[node name="HUD" parent="Camera2D/CanvasLayer" instance=ExtResource("2_nq6wp")]
+[node name="HUD" parent="Camera2D" instance=ExtResource("2_nq6wp")]
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(461, 0)
@@ -42,4 +41,4 @@ color = Color(0.5764706, 0.8235294, 0.9372549, 1)
 energy = 2.0
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_nq6wp")
-texture_scale = 4.5
+texture_scale = 4.0

@@ -1,11 +1,42 @@
-[gd_scene load_steps=4 format=3 uid="uid://d3cfso3ljt3te"]
+[gd_scene load_steps=9 format=3 uid="uid://d3cfso3ljt3te"]
 
 [ext_resource type="Script" uid="uid://dkatcb8an1en7" path="res://Enemies/Script/enemies.gd" id="1_85357"]
+[ext_resource type="Shader" uid="uid://dh8dhpyq6kqai" path="res://Enemies/Shader/blink.gdshader" id="2_545yd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_545yd"]
+resource_local_to_scene = true
+shader = ExtResource("2_545yd")
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_8dngs"]
+resource_local_to_scene = true
 size = Vector2(20, 20)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_85357"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_545yd"]
+radius = 14.0
+
+[sub_resource type="Gradient" id="Gradient_545yd"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pkgt1"]
+gradient = SubResource("Gradient_545yd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_x84ea"]
+resource_local_to_scene = true
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 35.0
+direction = Vector3(0.5, -0.5, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 400.0
+gravity = Vector3(0, 0, 0)
+damping_min = 100.00001
+damping_max = 800.00006
+scale_max = 3.0
+color = Color(0.47479695, 1.1130236e-06, 3.6098064e-07, 1)
+color_ramp = SubResource("GradientTexture1D_pkgt1")
 
 [node name="Enemies" type="CharacterBody2D" groups=["Enemies"]]
 motion_mode = 1
@@ -17,10 +48,11 @@ attack_speed = 2.0
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
 modulate = Color(0.7176471, 0, 0, 1)
+material = SubResource("ShaderMaterial_545yd")
 mesh = SubResource("QuadMesh_8dngs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_85357")
+shape = SubResource("CircleShape2D_545yd")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 
@@ -32,5 +64,15 @@ debug_enabled = true
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(6, 0)
+rotation = -2.620063
+emitting = false
+amount = 20
+lifetime = 0.8
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_x84ea")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
