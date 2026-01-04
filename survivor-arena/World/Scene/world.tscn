@@ -14,6 +14,8 @@ sky_material = SubResource("ProceduralSkyMaterial_nphny")
 [sub_resource type="Environment" id="Environment_nphny"]
 background_mode = 1
 sky = SubResource("Sky_pmpo8")
+glow_enabled = true
+glow_blend_mode = 1
 fog_mode = 1
 fog_light_energy = 8.63
 fog_density = 1.0

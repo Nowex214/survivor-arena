@@ -3,22 +3,31 @@ extends CharacterBody2D
 @onready var player_raycast : RayCast2D = $RayCast2D
 @onready var healthbar : ProgressBar = $Camera2D/CanvasLayer/HUD/Healthbar
 @onready var camera2D : Camera2D = $Camera2D
+@onready var hud : Control = $Camera2D/CanvasLayer/HUD
 
 @export_group("Stat")
 @export var move_speed : float = 300.0
 @export var max_health : int = 100
 @export var fire_rate : float = 0.25
 @export var damage : float = 25.0
+@export var max_ammo : int = 25
 
 var fire_cooldown : float = 0.0
 var current_health : int
-
+var current_ammo : int
 var camera_shake_noise : FastNoiseLite
+
+signal change_label_health
+signal change_label_ammo
 
 func _ready():
 	current_health = max_health
+	current_ammo = max_ammo
 	healthbar.init_health(max_health)
 	camera_shake_noise = FastNoiseLite.new()
+
+	change_label_health.emit(current_health)
+	change_label_ammo.emit(current_ammo)
 
 func _physics_process(delta: float) -> void:
 	var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -42,19 +51,26 @@ func camera_shake(intensity : float):
 	camera2D.offset.y = camera_offset
 
 func shoot() -> void:
-	var camera_tween = get_tree().create_tween()
-	camera_tween.tween_method(camera_shake, 5.0, 1.0, 0.15)
-	fire_cooldown = fire_rate
-	if player_raycast.is_colliding():
-		var collider = player_raycast.get_collider()
-		if collider.has_method("take_damage"):
-			collider.take_damage(damage)
+	if current_ammo > 0:
+		var camera_tween = get_tree().create_tween()
+		camera_tween.tween_method(camera_shake, 5.0, 1.0, 0.15)
+		fire_cooldown = fire_rate
+		current_ammo -= 1
+		change_label_ammo.emit(current_ammo)
+		print("Debug: Ammo: ", current_ammo)
+		if player_raycast.is_colliding():
+			var collider = player_raycast.get_collider()
+			if collider.has_method("take_damage"):
+				collider.take_damage(damage)
 
 func reset_game():
 	get_tree().reload_current_scene()
 
 func take_damage(amount: int) -> void:
+	var camera_tween = get_tree().create_tween()
+	camera_tween.tween_method(camera_shake, 5.0, 1.0, 0.075)
 	current_health -= amount
+	change_label_health.emit(current_health)
 	healthbar.health = current_health
 	if current_health > 0:
 		print("Player HP: ", current_health)

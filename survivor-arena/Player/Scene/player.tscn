@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dx7wra3rvnp5t"]
 
 [ext_resource type="Script" uid="uid://csebyf1yagq33" path="res://Player/Script/player.gd" id="1_4flbx"]
-[ext_resource type="PackedScene" uid="uid://dy7fukaa7sttc" path="res://HUD/Scene/hud.tscn" id="2_nq6wp"]
+[ext_resource type="PackedScene" uid="uid://dy7fukaa7sttc" path="res://Hud/Scene/hud.tscn" id="2_nq6wp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sh265"]
 
@@ -43,3 +43,6 @@ energy = 2.0
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_nq6wp")
 texture_scale = 4.5
+
+[connection signal="change_label_ammo" from="." to="Camera2D/CanvasLayer/HUD" method="_on_player_change_label_ammo"]
+[connection signal="change_label_health" from="." to="Camera2D/CanvasLayer/HUD" method="_on_player_change_label_health"]

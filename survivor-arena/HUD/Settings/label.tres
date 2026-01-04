@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://w5yom0bk5375"]
+
+[ext_resource type="FontFile" uid="uid://koul3o2p70fp" path="res://Utils/Font/abduction2002.ttf" id="1_l6pjj"]
+
+[resource]
+font = ExtResource("1_l6pjj")
+font_size = 24

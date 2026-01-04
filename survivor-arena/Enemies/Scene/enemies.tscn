@@ -17,10 +17,11 @@ size = Vector2(20, 20)
 radius = 14.0
 
 [sub_resource type="Gradient" id="Gradient_545yd"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+colors = PackedColorArray(18.892157, 0, 0, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_pkgt1"]
 gradient = SubResource("Gradient_545yd")
+use_hdr = true
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_x84ea"]
 resource_local_to_scene = true
@@ -35,7 +36,7 @@ gravity = Vector3(0, 0, 0)
 damping_min = 100.00001
 damping_max = 800.00006
 scale_max = 3.0
-color = Color(0.47479695, 1.1130236e-06, 3.6098064e-07, 1)
+color = Color(18.892157, 0, 0, 1)
 color_ramp = SubResource("GradientTexture1D_pkgt1")
 
 [node name="Enemies" type="CharacterBody2D" groups=["Enemies"]]
@@ -68,6 +69,7 @@ autostart = true
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(6, 0)
 rotation = -2.620063
+scale = Vector2(0.79334617, 0.74219817)
 emitting = false
 amount = 20
 lifetime = 0.8

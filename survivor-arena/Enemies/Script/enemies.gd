@@ -66,7 +66,7 @@ func take_damage(amount: int) -> void:
 	if current_health >= 0:
 		print("Enemy HP: ", current_health)
 	if current_health <= 0:
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(0.1).timeout
 		queue_free()
 
 func set_shader_blink(newValue : float):
