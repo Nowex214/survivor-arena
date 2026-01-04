@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dx7wra3rvnp5t"]
+[gd_scene load_steps=6 format=3 uid="uid://dx7wra3rvnp5t"]
 
 [ext_resource type="Script" uid="uid://csebyf1yagq33" path="res://Player/Script/player.gd" id="1_4flbx"]
+[ext_resource type="Texture2D" uid="uid://t32tueoj46q3" path="res://World/Textures/Floor.png" id="2_nq6wp"]
+[ext_resource type="Texture2D" uid="uid://1klg1h7jdldd" path="res://Player/Textures/image.png" id="3_x474h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sh265"]
 
@@ -9,6 +11,15 @@ size = Vector2(20, 20)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_4flbx")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+offset_left = -4.206276
+offset_top = -161.03065
+offset_right = 225.55182
+offset_bottom = 110.712265
+rotation = 0.7464226
+color = Color(0, 0, 0, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_sh265")
@@ -20,6 +31,18 @@ mesh = SubResource("QuadMesh_hoak5")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.25, 1.25)
 
-[node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(15, 0)
-rotation = -1.5726103
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(461, 0)
+
+[node name="Light" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 0.46666667, 0.60784316)
+position = Vector2(-15, 8)
+scale = Vector2(0.12500001, 0.125)
+texture = ExtResource("2_nq6wp")
+
+[node name="PointLight2D" type="PointLight2D" parent="Light"]
+position = Vector2(-16, -1.9073486e-06)
+rotation = 4.712389
+scale = Vector2(1, 1.3265657)
+texture = ExtResource("3_x474h")
+texture_scale = 5.0

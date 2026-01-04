@@ -1,12 +1,13 @@
 extends CharacterBody2D
 
-var bullet_scene = preload("res://Weapon/Scene/bullet.tscn")
+@onready var player_raycast : RayCast2D = $RayCast2D
+@onready var light : PointLight2D = $Light/PointLight2D
 
-@onready var shoot_marker : Marker2D = $Marker2D
-
+@export_group("Stat")
 @export var move_speed : float = 300.0
 @export var max_health : int = 100
 @export var fire_rate : float = 0.25
+@export var damage : float = 25.0
 
 var fire_cooldown : float = 0.0
 
@@ -20,31 +21,25 @@ func _physics_process(delta: float) -> void:
 	look_at(get_global_mouse_position())
 
 	fire_cooldown = max(0.0, fire_cooldown - delta)
-	if Input.is_action_pressed("shoot"):
+
+	if Input.is_action_pressed("shoot") and fire_cooldown <= 0.0:
 		shoot()
 
 # UTILS FUNCTIONS
 
-func shoot():
-	var bullet = bullet_scene.instantiate()
-	var dir = (get_global_mouse_position() - shoot_marker.global_position).normalized()
-
-	if fire_cooldown > 0:
-		return
+func shoot() -> void:
 	fire_cooldown = fire_rate
-
-	bullet.global_position = shoot_marker.global_position
-	bullet.direction = dir
-	bullet.rotation = dir.angle()
-
-	get_tree().current_scene.add_child(bullet)
+	if player_raycast.is_colliding():
+		var collider = player_raycast.get_collider()
+		if collider.has_method("take_damage"):
+			collider.take_damage(damage)
 
 func reset_game():
 	get_tree().reload_current_scene()
 
 func take_damage(amount: int) -> void:
 	max_health -= amount
-	if max_health >= 0:
+	if max_health > 0:
 		print("Player HP: ", max_health)
 	if max_health <= 0:
 		print("Game Over")

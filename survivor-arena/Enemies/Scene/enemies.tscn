@@ -2,24 +2,35 @@
 
 [ext_resource type="Script" uid="uid://dkatcb8an1en7" path="res://Enemies/Script/enemies.gd" id="1_85357"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8dngs"]
-
 [sub_resource type="QuadMesh" id="QuadMesh_8dngs"]
 size = Vector2(20, 20)
 
-[node name="Enemies" type="CharacterBody2D" groups=["Enemies"]]
-script = ExtResource("1_85357")
-max_health = null
-move_speed = null
-attack_range = 35.0
-attack_damage = 7.0
-attack_speed = 2.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_85357"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_8dngs")
+[node name="Enemies" type="CharacterBody2D" groups=["Enemies"]]
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_85357")
+attack_range = 40.0
+attack_damage = 15.0
+attack_speed = 2.0
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
 modulate = Color(0.7176471, 0, 0, 1)
 mesh = SubResource("QuadMesh_8dngs")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_85357")
+
 [node name="RayCast2D" type="RayCast2D" parent="."]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
+avoidance_enabled = true
+debug_enabled = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
